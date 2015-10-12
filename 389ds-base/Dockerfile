@@ -1,4 +1,4 @@
-FROM fedora-wbrown:latest
+FROM fedora-wibrown:latest
 MAINTAINER william@blackhats.net.au
 EXPOSE 389 636
 
@@ -9,16 +9,16 @@ RUN /usr/bin/dnf install -y nspr-devel nss-devel svrcore-devel openldap-devel mo
 # Temporal volumes for each instance
 VOLUME /opt/dirsrv
 
-RUN mkdir -p /home/wbrown/development/389ds
-RUN chown -R wbrown: /home/wbrown/development
+RUN mkdir -p /home/wibrown/development/389ds
+RUN chown -R wibrown: /home/wibrown/development
 
 # This might not do what I hope ... 
 # The volume, while per container, these other commands "don't stick" to it. :(
-RUN mkdir -p /home/wbrown/build
-RUN chown -R wbrown: /home/wbrown/build
-VOLUME /home/wbrown/build
+RUN mkdir -p /home/wibrown/build
+RUN chown -R wibrown: /home/wibrown/build
+VOLUME /home/wibrown/build
 
-USER wbrown
-WORKDIR /home/wbrown/development/389ds
+USER wibrown
+WORKDIR /home/wibrown/development/389ds
 CMD /bin/zsh
 

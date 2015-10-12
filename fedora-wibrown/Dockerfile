@@ -16,27 +16,27 @@ WORKDIR /
 #RUN cat /proc/net/if_inet6
 ADD dnf.conf /etc/dnf/dnf.conf
 RUN /usr/bin/dnf upgrade -y; /usr/bin/dnf clean all
-RUN /usr/bin/dnf install -y vim vim-nerdtree screen gcc gdb make iproute iputils git ccache findutils strace zsh rpm-build ldapvi valgrind krb5-workstation sudo procps-ng; /usr/bin/dnf clean all
+RUN /usr/bin/dnf install -y vim vim-nerdtree screen gcc gdb make iproute iputils git ccache findutils strace zsh rpm-build ldapvi valgrind krb5-workstation sudo procps-ng fedpkg; /usr/bin/dnf clean all
 
-RUN useradd -d /home/wbrown -M -G wheel -s /bin/zsh wbrown
-ADD zshrc /home/wbrown/.zshrc
-ADD vimrc /home/wbrown/.vimrc
-VOLUME /home/wbrown/development:/home/wbrown/development
+RUN useradd -d /home/wibrown -M -G wheel -s /bin/zsh wibrown
+ADD zshrc /home/wibrown/.zshrc
+ADD vimrc /home/wibrown/.vimrc
+VOLUME /home/wibrown/development:/home/wibrown/development
 
-RUN chown -R wbrown: /home/wbrown
+RUN chown -R wibrown: /home/wibrown
 
 # Which way is better?
 #VOLUME /development/srv/ccache:/srv/ccache
 VOLUME /srv:/srv
 # Says the directory doesn't exist. Fucking docker volumes are tempermental.
-RUN mkdir -p /srv/ccache; chown -R wbrown: /srv/ccache; exit 0
+RUN mkdir -p /srv/ccache; chown -R wibrown: /srv/ccache; exit 0
 
 ADD ccache.conf /etc/ccache.conf
-ADD wbrown-sudo /etc/sudoers.d/wbrown
+ADD wibrown-sudo /etc/sudoers.d/wibrown
 
 # Probably setup the gitinfo stuff here too ....
 
-USER wbrown
-WORKDIR /home/wbrown
+USER wibrown
+WORKDIR /home/wibrown
 CMD /bin/zsh
 
