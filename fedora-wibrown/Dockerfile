@@ -14,14 +14,22 @@ RUN ln -sf ../usr/share/zoneinfo/Australia/Brisbane localtime
 WORKDIR /
 
 #RUN cat /proc/net/if_inet6
-ADD dnf.conf /etc/dnf/dnf.conf
+COPY dnf.conf /etc/dnf/dnf.conf
 RUN /usr/bin/dnf upgrade -y; /usr/bin/dnf clean all
 RUN /usr/bin/dnf install -y vim vim-nerdtree screen gcc gdb make iproute iputils git ccache findutils strace zsh rpm-build ldapvi valgrind krb5-workstation sudo procps-ng fedpkg; /usr/bin/dnf clean all
 
 RUN useradd -d /home/wibrown -M -G wheel -s /bin/zsh wibrown
-ADD zshrc /home/wibrown/.zshrc
-ADD vimrc /home/wibrown/.vimrc
+COPY zshrc /home/wibrown/.zshrc
+COPY vimrc /home/wibrown/.vimrc
 VOLUME /home/wibrown/development:/home/wibrown/development
+
+# Add in devel SSH keys that I need for work.
+RUN mkdir /home/wibrown/.ssh
+COPY ssh/config /home/wibrown/.ssh/
+COPY ssh/id_rsa_fedora* /home/wibrown/.ssh/
+COPY ssh/id_ecdsa_redhat* /home/wibrown/.ssh/
+RUN chmod 600 /home/wibrown/.ssh/*
+RUN chmod 700 /home/wibrown/.ssh
 
 RUN chown -R wibrown: /home/wibrown
 
@@ -31,8 +39,9 @@ VOLUME /srv:/srv
 # Says the directory doesn't exist. Fucking docker volumes are tempermental.
 RUN mkdir -p /srv/ccache; chown -R wibrown: /srv/ccache; exit 0
 
-ADD ccache.conf /etc/ccache.conf
-ADD wibrown-sudo /etc/sudoers.d/wibrown
+COPY ccache.conf /etc/ccache.conf
+COPY wibrown-sudo /etc/sudoers.d/wibrown
+
 
 # Probably setup the gitinfo stuff here too ....
 
