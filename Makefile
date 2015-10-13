@@ -1,9 +1,9 @@
-FEDORA_VERSIONS := 21 22 23
+FEDORA_VERSIONS := 22
 FEDORA_CUSTOM := fedora_wibrown
 CENTOS_VERSIONS := 6 7
 CENTOS_CUSTOM := centos_wibrown
 
-all: fedora_dockers centos_dockes
+all: fedora_dockers centos_dockers
 
 all_nocache: fedora_dockers_nocache centos_dockers_nocache
 
@@ -17,6 +17,7 @@ base:
 	mkdir -p base
 	m4 -I src -DWITHDNF src/ccache.conf.m4 > base/ccache.conf
 	m4 -I src -DWITHDNF src/dnf.conf.m4 > base/dnf.conf
+	m4 -I src -DWITHDNF src/yum.conf.m4 > base/yum.conf
 	m4 -I src -DWITHDNF src/vimrc.m4 > base/vimrc
 	m4 -I src -DWITHDNF src/user-sudo.m4 > base/user-sudo
 	m4 -I src -DWITHDNF src/zshrc.m4 > base/zshrc
