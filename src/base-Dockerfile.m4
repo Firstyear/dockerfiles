@@ -17,6 +17,7 @@ include(details.m4)
 #RUN cat /proc/net/if_inet6
 
 `COPY' DNFYUM.conf /etc/DNFYUM/DNFYUM.conf
+# For packages that don't exist in CENTOS how do we manage this?
 `RUN' /usr/bin/DNFYUM upgrade -y; /usr/bin/DNFYUM clean all
 `RUN' /usr/bin/DNFYUM install -y vim vim-nerdtree screen gcc gdb make iproute iputils ccache findutils strace zsh rpm-build ldapvi valgrind krb5-workstation sudo procps-ng fedpkg; /usr/bin/DNFYUM clean all
 

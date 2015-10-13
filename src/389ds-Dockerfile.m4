@@ -1,3 +1,4 @@
+include(details.m4)
 `FROM' OS:VERSION
 `MAINTAINER' AUTHOR
 `EXPOSE' 389 636

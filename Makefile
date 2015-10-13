@@ -1,15 +1,16 @@
-DOCKERNAME := $(notdir $(CURDIR))
 FEDORA_VERSIONS := 21 22 23
 FEDORA_CUSTOM := fedora_wibrown
+CENTOS_VERSIONS := 6 7
+CENTOS_CUSTOM := centos_wibrown
 
-all: fedora_dockers
+all: fedora_dockers centos_dockes
 
-all_nocache: fedora_dockers_nocache
+all_nocache: fedora_dockers_nocache centos_dockers_nocache
 
 clean:
 	rm -rf base*
-	rm -rf fedora_base*
-	rm -rf 389ds_base*
+	rm -rf fedora*
+	rm -rf centos*
 	#Clean docker bits here?
 
 base:
@@ -23,22 +24,43 @@ base:
 # So to add another, you likely need to add to the mkdir bit, then you add another m4 line
 fedora_dockerfiles: base
 	for VERSION in $(FEDORA_VERSIONS); do \
-	mkdir -p {fedora,389ds}_base_$${VERSION} ;\
+	mkdir -p fedora_{389ds,base}_$${VERSION} ;\
 	cp base/* fedora_base_$${VERSION}/ ;\
-	m4 -I src -DOS=fedora -DVERSION=$${VERSION} -DWITHDNF src/fedora-base-Dockerfile.m4 > fedora_base_$${VERSION}/Dockerfile ;\
-	m4 -I src -DOS=$(FEDORA_CUSTOM) -DVERSION=$${VERSION} -DWITHDNF src/389ds-base-Dockerfile.m4 > 389ds_base_$${VERSION}/Dockerfile ;\
+	m4 -I src -DOS=fedora -DVERSION=$${VERSION} -DWITHDNF src/base-Dockerfile.m4 > fedora_base_$${VERSION}/Dockerfile ;\
+	m4 -I src -DOS=$(FEDORA_CUSTOM) -DVERSION=$${VERSION} -DWITHDNF src/389ds-Dockerfile.m4 > fedora_389ds_$${VERSION}/Dockerfile ;\
 	done
 
 fedora_dockers: fedora_dockerfiles
 	for VERSION in $(FEDORA_VERSIONS); do \
 	sudo docker build -t $(FEDORA_CUSTOM):$${VERSION} fedora_base_$${VERSION}/ ;\
-	sudo docker build -t 389ds_base:$${VERSION} 389ds_base_$${VERSION}/ ;\
+	sudo docker build -t $(FEDORA_CUSTOM)_389ds:$${VERSION} fedora_389ds_$${VERSION}/ ;\
 	done
 
 fedora_dockers_nocache: fedora_dockerfiles
 	for VERSION in $(FEDORA_VERSIONS); do \
 	sudo docker build --no-cache=true -t $(FEDORA_CUSTOM):$${VERSION} fedora_base_$${VERSION}/ ;\
-	sudo docker build --no-cache=true -t 389ds_base:$${VERSION} 389ds_base_$${VERSION}/ ;\
+	sudo docker build --no-cache=true -t $(FEDORA_CUSTOM)_389ds:$${VERSION} fedora_389ds_$${VERSION}/ ;\
 	done
 
+
+# So to add another, you likely need to add to the mkdir bit, then you add another m4 line
+centos_dockerfiles: base
+	for VERSION in $(CENTOS_VERSIONS); do \
+	mkdir -p centos_{base,389ds}_$${VERSION} ;\
+	cp base/* centos_base_$${VERSION}/ ;\
+	m4 -I src -DOS=centos -DVERSION=$${VERSION} src/base-Dockerfile.m4 > centos_base_$${VERSION}/Dockerfile ;\
+	m4 -I src -DOS=$(CENTOS_CUSTOM) -DVERSION=$${VERSION} src/389ds-Dockerfile.m4 > centos_389ds_$${VERSION}/Dockerfile ;\
+	done
+
+centos_dockers: centos_dockerfiles
+	for VERSION in $(CENTOS_VERSIONS); do \
+	sudo docker build -t $(CENTOS_CUSTOM):$${VERSION} centos_base_$${VERSION}/ ;\
+	sudo docker build -t $(CENTOS_CUSTOM)_389ds:$${VERSION} centos_389ds_$${VERSION}/ ;\
+	done
+
+centos_dockers_nocache: centos_dockerfiles
+	for VERSION in $(CENTOS_VERSIONS); do \
+	sudo docker build --no-cache=true -t $(CENTOS_CUSTOM):$${VERSION} centos_base_$${VERSION}/ ;\
+	sudo docker build --no-cache=true -t $(CENTOS_CUSTOM)_389ds:$${VERSION} centos_389ds_$${VERSION}/ ;\
+	done
 
