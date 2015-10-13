@@ -7,8 +7,9 @@ all: fedora_dockers
 all_nocache: fedora_dockers_nocache
 
 clean:
-	rm -rf base*/*
-	rm -rf fedora_base*/*
+	rm -rf base*
+	rm -rf fedora_base*
+	rm -rf 389ds_base*
 	#Clean docker bits here?
 
 base:
@@ -20,7 +21,7 @@ base:
 	m4 -I src -DWITHDNF src/zshrc.m4 > base/zshrc
 
 # So to add another, you likely need to add to the mkdir bit, then you add another m4 line
-fedora_dockerfiles: fedora_base
+fedora_dockerfiles: base
 	for VERSION in $(FEDORA_VERSIONS); do \
 	mkdir -p {fedora,389ds}_base_$${VERSION} ;\
 	cp base/* fedora_base_$${VERSION}/ ;\
