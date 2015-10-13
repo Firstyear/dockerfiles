@@ -1,3 +1,4 @@
+include(details.m4)
 [main]
 gpgcheck=1
 installonly_limit=3

@@ -1,3 +1,4 @@
+include(details.m4)
 syntax on
 
 set wrap
