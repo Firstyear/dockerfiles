@@ -6,7 +6,7 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
-set list listchars=tab:·\ ,trail:·,precedes:<,extends:>
+"set list listchars=tab:·\ ,trail:·,precedes:<,extends:>
 
 nnoremap <Left>  <NOP>
 nnoremap <Right> <NOP>

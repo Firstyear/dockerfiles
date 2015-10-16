@@ -7,6 +7,8 @@ all: fedora_dockers centos_dockers
 
 all_nocache: fedora_dockers_nocache centos_dockers_nocache
 
+all_dockerfiles: fedora_dockerfiles centos_dockerfiles
+
 clean:
 	rm -rf base*
 	rm -rf fedora*
