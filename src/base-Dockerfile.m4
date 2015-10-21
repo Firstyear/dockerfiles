@@ -24,7 +24,7 @@ include(details.m4)
 # YEAH LETS CRACK OUT THE DEBUGINFO WOOHOO
 `RUN' /usr/bin/debuginfo-install -y glibc
 
-
+# I would like to set this to -u `UID'
 `RUN' useradd -d /home/USER -M -G wheel -s /bin/zsh USER
 `VOLUME' /home:/home
 
