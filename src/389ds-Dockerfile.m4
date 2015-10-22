@@ -1,10 +1,11 @@
 include(details.m4)
 `FROM' OS:VERSION
 `MAINTAINER' AUTHOR
-`EXPOSE' 389 636
+# For the flask api
+`EXPOSE' 389 636 5000
 
 `USER' root
-`RUN' /usr/bin/DNFYUM install -y 389-ds-base pytest python-ldap; /usr/bin/DNFYUM clean all
+`RUN' /usr/bin/DNFYUM install -y 389-ds-base pytest python-ldap python-flask; /usr/bin/DNFYUM clean all
 `RUN' /usr/bin/DNFYUM install -y nspr-devel nss-devel svrcore-devel openldap-devel mozldap-devel db4-devel libdb-devel cyrus-sasl-devel icu libicu-devel pcre-devel gcc-c++ net-snmp-devel lm_sensors-devel bzip2-devel zlib-devel openssl-devel tcp_wrappers pam-devel systemd-units nspr-devel nss-devel svrcore-devel openldap-devel mozldap-devel db4-devel libdb-devel cyrus-sasl-devel libicu-devel pcre-devel libtalloc-devel libevent-devel libtevent-devel krb5-devel; /usr/bin/DNFYUM clean all
 ## Look at dnf config-manager
 #`RUN' /usr/bin/debuginfo-install -y 389-ds-base
