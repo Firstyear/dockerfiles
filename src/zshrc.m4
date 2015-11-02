@@ -13,6 +13,7 @@ export `NSS_DEFAULT_DB_TYPE'=sql
 
 export `PREFIX'=/opt/dirsrv
 export `PYTHONPATH'=/home/USER/development/389ds/lib389
-alias configure-389ds='/home/USER/development/389ds/ds/configure --with-openldap --enable-debug --prefix=$`PREFIX''
+alias configure-ds='/home/USER/development/389ds/ds/configure --with-openldap --enable-debug --prefix=$`PREFIX''
+alias configure-admin='/home/USER/development/389ds/admin/configure --with-openldap --enable-debug --prefix=$`PREFIX''
 
 

@@ -20,12 +20,12 @@ include(details.m4)
 # For packages that don't exist in CENTOS how do we manage this?
 ## Maybe use  ifelse(a,b,c,d) compares the strings a and b. If they match, the macro expands to string c; if not, string d.
 `RUN' /usr/bin/DNFYUM upgrade -y; /usr/bin/DNFYUM clean all
-`RUN' /usr/bin/DNFYUM install -y vim vim-nerdtree screen gcc gdb make iproute iputils ccache findutils strace zsh rpm-build ldapvi valgrind krb5-workstation sudo procps-ng fedpkg bind-utils yum-utils; /usr/bin/DNFYUM clean all
+`RUN' /usr/bin/DNFYUM install -y vim vim-nerdtree screen gcc gdb make iproute iputils ccache findutils strace zsh rpm-build ldapvi valgrind krb5-workstation sudo procps-ng fedpkg bind-utils yum-utils nc dnf-plugins-core; /usr/bin/DNFYUM clean all
 # YEAH LETS CRACK OUT THE DEBUGINFO WOOHOO
 `RUN' /usr/bin/debuginfo-install -y glibc
 
 # I would like to set this to -u `UID'
-`RUN' useradd -d /home/USER -M -G wheel -s /bin/zsh USER
+`RUN' useradd -d /home/USER -s /bin/zsh -M -G wheel -s /bin/zsh USER
 `VOLUME' /home:/home
 
 # Only needs to be done once?
