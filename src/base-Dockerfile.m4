@@ -12,6 +12,9 @@ include(details.m4)
 `WORKDIR' /etc
 `RUN' ln -sf ../usr/share/zoneinfo/TZ localtime
 
+# If centos, we need to build the locale
+ifdef(`WITHDNF', , `RUN' localedef -i en_AU -c -f UTF-8 en_AU.UTF-8 )
+
 `WORKDIR' /
 
 #RUN cat /proc/net/if_inet6
