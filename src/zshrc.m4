@@ -13,7 +13,14 @@ export `NSS_DEFAULT_DB_TYPE'=sql
 
 export `PREFIX'=/opt/dirsrv
 export `PYTHONPATH'=/home/USER/development/389ds/lib389
-alias configure-ds='/home/USER/development/389ds/ds/configure --with-openldap --enable-debug --prefix=$`PREFIX''
+
+export `CFLAGS'='-Wall -Werror'
+
+alias configure-ds='/home/USER/development/389ds/ds/configure --with-openldap --enable-debug --with-nunc-stans=/opt/nunc-stans/ --enable-nunc-stans  --prefix=$`PREFIX''
 alias configure-admin='/home/USER/development/389ds/admin/configure --with-openldap --enable-debug --prefix=$`PREFIX''
+alias setup-ds='$`PREFIX'/sbin/setup-ds.pl --silent --debug --file=/home/USER/development/389ds/setup.inf General.FullMachineName=$(hostname) '
+
+export ASAN_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer
+export ASAN_OPTIONS=symbolize=1
 
 

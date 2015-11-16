@@ -1,9 +1,10 @@
-FEDORA_VERSIONS := 22
+FEDORA_VERSIONS := 22 23
 FEDORA_CUSTOM := fedora_wibrown
 CENTOS_VERSIONS := 6 7
 CENTOS_CUSTOM := centos_wibrown
 
-all: fedora_dockers centos_dockers
+#all: fedora_dockers centos_dockers
+all: centos_dockers
 
 all_nocache: fedora_dockers_nocache centos_dockers_nocache
 

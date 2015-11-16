@@ -22,8 +22,11 @@ ifdef(`WITHDNF', , `RUN' localedef -i en_AU -c -f UTF-8 en_AU.UTF-8 )
 `COPY' DNFYUM.conf /etc/DNFYUM/DNFYUM.conf
 # For packages that don't exist in CENTOS how do we manage this?
 ## Maybe use  ifelse(a,b,c,d) compares the strings a and b. If they match, the macro expands to string c; if not, string d.
+ifdef(`WITHDNF', , `RUN' /usr/bin/DNFYUM install -y epel-release )
 `RUN' /usr/bin/DNFYUM upgrade -y; /usr/bin/DNFYUM clean all
-`RUN' /usr/bin/DNFYUM install -y vim vim-nerdtree screen gcc gdb make iproute iputils ccache findutils strace zsh rpm-build ldapvi valgrind krb5-workstation sudo procps-ng fedpkg bind-utils yum-utils nc dnf-plugins-core; /usr/bin/DNFYUM clean all
+`RUN' /usr/bin/DNFYUM install -y vim vim-nerdtree screen gcc gdb make iproute iputils ccache findutils strace zsh rpm-build ldapvi valgrind krb5-workstation sudo procps-ng fedpkg bind-utils yum-utils nc dnf-plugins-core autoconf automake libtool man libasan llvm; /usr/bin/DNFYUM clean all
+# Maybe I should make a "devel" container ... 
+`RUN' /usr/bin/DNFYUM install -y libevent-devel nspr-devel libtalloc-devel libtevent-devel
 # YEAH LETS CRACK OUT THE DEBUGINFO WOOHOO
 `RUN' /usr/bin/debuginfo-install -y glibc
 
