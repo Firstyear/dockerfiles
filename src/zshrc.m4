@@ -14,7 +14,7 @@ export `NSS_DEFAULT_DB_TYPE'=sql
 export `PREFIX'=/opt/dirsrv
 export `PYTHONPATH'=/home/USER/development/389ds/lib389
 
-export `CFLAGS'='-Wall -Werror'
+export `CFLAGS'='-Wall'
 
 alias configure-ds='/home/USER/development/389ds/ds/configure --with-openldap --enable-debug --with-nunc-stans=/opt/nunc-stans/ --enable-nunc-stans  --prefix=$`PREFIX''
 alias configure-admin='/home/USER/development/389ds/admin/configure --with-openldap --enable-debug --prefix=$`PREFIX''
