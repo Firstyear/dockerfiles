@@ -2,7 +2,7 @@ CENTOS_VERSIONS := 6 7
 CENTOS_CUSTOM := centos_wibrown
 # These are ordered in build order ...
 
-CENTOS_VARIANTS := base devel 389ds systemd
+CENTOS_VARIANTS := base devel 389ds-devel systemd
 
 #all: fedora_dockers centos_dockers
 all: centos_dockers
@@ -35,7 +35,7 @@ centos_dockerfiles: base
 		done; \
 		m4 -I src -DOS=centos -DVERSION=$${VERSION} src/base-Dockerfile.m4 > $(CENTOS_CUSTOM)_base_$${VERSION}/Dockerfile ;\
 		m4 -I src -DOS=$(CENTOS_CUSTOM)_base -DVERSION=$${VERSION} src/devel-Dockerfile.m4 > $(CENTOS_CUSTOM)_devel_$${VERSION}/Dockerfile ;\
-		m4 -I src -DOS=$(CENTOS_CUSTOM)_devel -DVERSION=$${VERSION} src/389ds-Dockerfile.m4 > $(CENTOS_CUSTOM)_389ds_$${VERSION}/Dockerfile ;\
+		m4 -I src -DOS=$(CENTOS_CUSTOM)_devel -DVERSION=$${VERSION} src/389ds-devel-Dockerfile.m4 > $(CENTOS_CUSTOM)_389ds-devel_$${VERSION}/Dockerfile ;\
 		m4 -I src -DOS=$(CENTOS_CUSTOM)_base -DVERSION=$${VERSION} src/systemd-Dockerfile.m4 > $(CENTOS_CUSTOM)_systemd_$${VERSION}/Dockerfile ;\
 	done
 
