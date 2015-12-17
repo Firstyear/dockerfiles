@@ -42,14 +42,14 @@ centos_dockerfiles: base
 centos_dockers: centos_dockerfiles
 	for VERSION in $(CENTOS_VERSIONS); do \
 		for VARIANT in $(CENTOS_VARIANTS); do \
-			sudo docker build -t $(CENTOS_CUSTOM)_$${VARIANT}:$${VERSION}  $(CENTOS_CUSTOM)_$${VARIANT}_$${VERSION}/ ;\
+			sudo docker build -t $(CENTOS_CUSTOM)_$${VARIANT}:$${VERSION} $(CENTOS_CUSTOM)_$${VARIANT}_$${VERSION} ;\
 		done; \
 	done
 
 centos_dockers_nocache: centos_dockerfiles
 	for VERSION in $(CENTOS_VERSIONS); do \
 		for VARIANT in $(CENTOS_VARIANTS); do \
-			sudo docker build --no-cache=true -t $(CENTOS_CUSTOM)_$${VARIANT}:$${VERSION}  $(CENTOS_CUSTOM)_$${VARIANT}_$${VERSION}/ ;\
+			sudo docker build --no-cache=true -t $(CENTOS_CUSTOM)_$${VARIANT}:$${VERSION} $(CENTOS_CUSTOM)_$${VARIANT}_$${VERSION} ;\
 		done; \
 	done
 
