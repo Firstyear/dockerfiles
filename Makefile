@@ -18,12 +18,12 @@ clean:
 
 base:
 	mkdir -p base
-	m4 -I src src/ccache.conf.m4 > base/ccache.conf
-	m4 -I src src/dnf.conf.m4 > base/dnf.conf
-	m4 -I src src/yum.conf.m4 > base/yum.conf
-	m4 -I src src/vimrc.m4 > base/vimrc
-	m4 -I src src/user-sudo.m4 > base/user-sudo
-	m4 -I src src/zshrc.m4 > base/zshrc
+	m4 -I src/configs src/configs/ccache.conf.m4 > base/ccache.conf
+	m4 -I src/configs src/configs/dnf.conf.m4 > base/dnf.conf
+	m4 -I src/configs src/configs/yum.conf.m4 > base/yum.conf
+	m4 -I src/configs src/configs/vimrc.m4 > base/vimrc
+	m4 -I src/configs src/configs/user-sudo.m4 > base/user-sudo
+	m4 -I src/configs src/configs/zshrc.m4 > base/zshrc
 
 # So to add another, you likely need to add to the mkdir bit, then you add another m4 line
 # We can't do loop magic here as we need to define the dependancies
@@ -33,10 +33,10 @@ centos_dockerfiles: base
 			mkdir -p  $(CENTOS_CUSTOM)_$${VARIANT}_$${VERSION} ;\
 			cp base/* $(CENTOS_CUSTOM)_$${VARIANT}_$${VERSION}/ ;\
 		done; \
-		m4 -I src -DOS=centos -DVERSION=$${VERSION} src/base-Dockerfile.m4 > $(CENTOS_CUSTOM)_base_$${VERSION}/Dockerfile ;\
-		m4 -I src -DOS=$(CENTOS_CUSTOM)_base -DVERSION=$${VERSION} src/devel-Dockerfile.m4 > $(CENTOS_CUSTOM)_devel_$${VERSION}/Dockerfile ;\
-		m4 -I src -DOS=$(CENTOS_CUSTOM)_devel -DVERSION=$${VERSION} src/389ds-devel-Dockerfile.m4 > $(CENTOS_CUSTOM)_389ds-devel_$${VERSION}/Dockerfile ;\
-		m4 -I src -DOS=$(CENTOS_CUSTOM)_base -DVERSION=$${VERSION} src/systemd-Dockerfile.m4 > $(CENTOS_CUSTOM)_systemd_$${VERSION}/Dockerfile ;\
+		m4 -I src/m4 -DOS=centos -DVERSION=$${VERSION} src/base-Dockerfile.m4 > $(CENTOS_CUSTOM)_base_$${VERSION}/Dockerfile ;\
+		m4 -I src/m4 -DOS=centos -DVERSION=$${VERSION} src/devel-Dockerfile.m4 > $(CENTOS_CUSTOM)_devel_$${VERSION}/Dockerfile ;\
+		m4 -I src/m4 -DOS=centos -DVERSION=$${VERSION} src/389ds-devel-Dockerfile.m4 > $(CENTOS_CUSTOM)_389ds-devel_$${VERSION}/Dockerfile ;\
+		m4 -I src/m4 -DOS=centos -DVERSION=$${VERSION} src/systemd-Dockerfile.m4 > $(CENTOS_CUSTOM)_systemd_$${VERSION}/Dockerfile ;\
 	done
 
 centos_dockers: centos_dockerfiles
