@@ -1,6 +1,6 @@
 
 # Things I use a lot ...
-`RUN' /usr/bin/DNFYUM install -y vim vim-nerdtree screen gcc gdb make iproute iputils ccache findutils strace zsh rpm-build ldapvi valgrind krb5-workstation sudo procps-ng fedpkg bind-utils yum-utils nc dnf-plugins-core autoconf automake libtool man libasan llvm rpmdevtools ; /usr/bin/DNFYUM clean all
+`RUN' /usr/bin/DNFYUM install -y vim vim-nerdtree screen gcc gdb make iproute iputils ccache findutils strace zsh rpm-build ldapvi valgrind krb5-workstation sudo procps-ng fedpkg bind-utils yum-utils nc dnf-plugins-core autoconf automake libtool man libasan llvm rpmdevtools copr-cli ; /usr/bin/DNFYUM clean all
 `RUN' /usr/bin/DNFYUM install -y libevent-devel nspr-devel libtalloc-devel libtevent-devel
 # YEAH LETS CRACK OUT THE DEBUGINFO WOOHOO
 `RUN' /usr/bin/debuginfo-install -y glibc

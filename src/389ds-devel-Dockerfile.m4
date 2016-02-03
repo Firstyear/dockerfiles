@@ -5,3 +5,5 @@ include(base.m4)
 include(devel.m4)
 include(389.m4)
 
+include(mlocate.m4)
+

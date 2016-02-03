@@ -18,12 +18,12 @@ clean:
 
 base:
 	mkdir -p base
-	m4 -I src/configs src/configs/ccache.conf.m4 > base/ccache.conf
-	m4 -I src/configs src/configs/dnf.conf.m4 > base/dnf.conf
-	m4 -I src/configs src/configs/yum.conf.m4 > base/yum.conf
-	m4 -I src/configs src/configs/vimrc.m4 > base/vimrc
-	m4 -I src/configs src/configs/user-sudo.m4 > base/user-sudo
-	m4 -I src/configs src/configs/zshrc.m4 > base/zshrc
+	m4 -I src/m4 src/configs/ccache.conf.m4 > base/ccache.conf
+	m4 -I src/m4 src/configs/dnf.conf.m4 > base/dnf.conf
+	m4 -I src/m4 src/configs/yum.conf.m4 > base/yum.conf
+	m4 -I src/m4 src/configs/vimrc.m4 > base/vimrc
+	m4 -I src/m4 src/configs/user-sudo.m4 > base/user-sudo
+	m4 -I src/m4 src/configs/zshrc.m4 > base/zshrc
 
 # So to add another, you likely need to add to the mkdir bit, then you add another m4 line
 # We can't do loop magic here as we need to define the dependancies
