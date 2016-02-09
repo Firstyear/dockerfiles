@@ -2,19 +2,25 @@ CENTOS_VERSIONS := 6 7
 CENTOS_CUSTOM := centos_wibrown
 # These are ordered in build order ...
 
-CENTOS_VARIANTS := base devel 389ds-devel systemd
+FEDORA_CUSTOM := fedora_wibrown
+FEDORA_VERSIONS := rawhide 23
+
+VARIANTS := base devel 389ds-devel systemd
 
 #all: fedora_dockers centos_dockers
-all: centos_dockers
+all: centos_dockers fedora_dockers
 
-nocache: centos_dockers_nocache
+nocache: centos_dockers_nocache fedora_dockers_nocache
 
-dockerfiles: centos_dockerfiles
+dockerfiles: centos_dockerfiles fedora_dockerfiles
 
 clean:
 	rm -rf base*
 	rm -rf $(CENTOS_CUSTOM)*
+	rm -rf $(FEDORA_CUSTOM)*
 	#Clean docker bits here?
+	bash ./docker-remove-images.sh
+	bash ./docker-cleanup-volumes.sh
 
 base:
 	mkdir -p base
@@ -29,27 +35,47 @@ base:
 # We can't do loop magic here as we need to define the dependancies
 centos_dockerfiles: base
 	for VERSION in $(CENTOS_VERSIONS); do \
-		for VARIANT in $(CENTOS_VARIANTS); do \
+		for VARIANT in $(VARIANTS); do \
 			mkdir -p  $(CENTOS_CUSTOM)_$${VARIANT}_$${VERSION} ;\
 			cp base/* $(CENTOS_CUSTOM)_$${VARIANT}_$${VERSION}/ ;\
+			m4 -I src/m4 -DOS=centos -DVERSION=$${VERSION} src/$${VARIANT}-Dockerfile.m4 > $(CENTOS_CUSTOM)_$${VARIANT}_$${VERSION}/Dockerfile ;\
 		done; \
-		m4 -I src/m4 -DOS=centos -DVERSION=$${VERSION} src/base-Dockerfile.m4 > $(CENTOS_CUSTOM)_base_$${VERSION}/Dockerfile ;\
-		m4 -I src/m4 -DOS=centos -DVERSION=$${VERSION} src/devel-Dockerfile.m4 > $(CENTOS_CUSTOM)_devel_$${VERSION}/Dockerfile ;\
-		m4 -I src/m4 -DOS=centos -DVERSION=$${VERSION} src/389ds-devel-Dockerfile.m4 > $(CENTOS_CUSTOM)_389ds-devel_$${VERSION}/Dockerfile ;\
-		m4 -I src/m4 -DOS=centos -DVERSION=$${VERSION} src/systemd-Dockerfile.m4 > $(CENTOS_CUSTOM)_systemd_$${VERSION}/Dockerfile ;\
 	done
 
 centos_dockers: centos_dockerfiles
 	for VERSION in $(CENTOS_VERSIONS); do \
-		for VARIANT in $(CENTOS_VARIANTS); do \
+		for VARIANT in $(VARIANTS); do \
 			sudo docker build -t $(CENTOS_CUSTOM)_$${VARIANT}:$${VERSION} $(CENTOS_CUSTOM)_$${VARIANT}_$${VERSION} ;\
 		done; \
 	done
 
 centos_dockers_nocache: centos_dockerfiles
 	for VERSION in $(CENTOS_VERSIONS); do \
-		for VARIANT in $(CENTOS_VARIANTS); do \
+		for VARIANT in $(VARIANTS); do \
 			sudo docker build --no-cache=true -t $(CENTOS_CUSTOM)_$${VARIANT}:$${VERSION} $(CENTOS_CUSTOM)_$${VARIANT}_$${VERSION} ;\
+		done; \
+	done
+
+fedora_dockerfiles: base
+	for VERSION in $(FEDORA_VERSIONS); do \
+		for VARIANT in $(VARIANTS); do \
+			mkdir -p  $(FEDORA_CUSTOM)_$${VARIANT}_$${VERSION} ;\
+			cp base/* $(FEDORA_CUSTOM)_$${VARIANT}_$${VERSION}/ ;\
+			m4 -I src/m4 -DOS=fedora -DVERSION=$${VERSION} src/$${VARIANT}-Dockerfile.m4 > $(FEDORA_CUSTOM)_$${VARIANT}_$${VERSION}/Dockerfile ;\
+		done; \
+	done
+
+fedora_dockers: fedora_dockerfiles
+	for VERSION in $(FEDORA_VERSIONS); do \
+		for VARIANT in $(VARIANTS); do \
+			sudo docker build -t $(FEDORA_CUSTOM)_$${VARIANT}:$${VERSION} $(FEDORA_CUSTOM)_$${VARIANT}_$${VERSION} ;\
+		done; \
+	done
+
+fedora_dockers_nocache: fedora_dockerfiles
+	for VERSION in $(FEDORA_VERSIONS); do \
+		for VARIANT in $(VARIANTS); do \
+			sudo docker build --no-cache=true -t $(FEDORA_CUSTOM)_$${VARIANT}:$${VERSION} $(FEDORA_CUSTOM)_$${VARIANT}_$${VERSION} ;\
 		done; \
 	done
 
