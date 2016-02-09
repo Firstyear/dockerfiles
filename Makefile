@@ -5,7 +5,9 @@ CENTOS_CUSTOM := centos_wibrown
 FEDORA_CUSTOM := fedora_wibrown
 FEDORA_VERSIONS := rawhide 23
 
-VARIANTS := base devel 389ds-devel systemd
+# VARIANTS := base devel 389ds-devel systemd
+#VARIANTS := devel 389ds-devel
+VARIANTS := 389ds-devel
 
 #all: fedora_dockers centos_dockers
 all: centos_dockers fedora_dockers
@@ -19,8 +21,8 @@ clean:
 	rm -rf $(CENTOS_CUSTOM)*
 	rm -rf $(FEDORA_CUSTOM)*
 	#Clean docker bits here?
-	bash ./docker-remove-images.sh
-	bash ./docker-cleanup-volumes.sh
+	#./docker-remove-images.sh; true
+	#sudo ./docker-cleanup-volumes.sh; true
 
 base:
 	mkdir -p base
@@ -61,7 +63,7 @@ fedora_dockerfiles: base
 		for VARIANT in $(VARIANTS); do \
 			mkdir -p  $(FEDORA_CUSTOM)_$${VARIANT}_$${VERSION} ;\
 			cp base/* $(FEDORA_CUSTOM)_$${VARIANT}_$${VERSION}/ ;\
-			m4 -I src/m4 -DOS=fedora -DVERSION=$${VERSION} src/$${VARIANT}-Dockerfile.m4 > $(FEDORA_CUSTOM)_$${VARIANT}_$${VERSION}/Dockerfile ;\
+			m4 -I src/m4 -DOS=fedora -DWITHDNF -DVERSION=$${VERSION} src/$${VARIANT}-Dockerfile.m4 > $(FEDORA_CUSTOM)_$${VARIANT}_$${VERSION}/Dockerfile ;\
 		done; \
 	done
 

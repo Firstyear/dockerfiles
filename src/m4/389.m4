@@ -1,3 +1,4 @@
+## `389.M4'
 
 # For the flask api
 `EXPOSE' 80 389 443 636 5000
@@ -15,7 +16,3 @@
 VOLUME /opt/dirsrv
 
 
-
-`USER' USER
-`WORKDIR' /home/USER/development/389ds
-`CMD' /bin/zsh
