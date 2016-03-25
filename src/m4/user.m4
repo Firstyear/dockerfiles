@@ -3,7 +3,8 @@
 `USER' root
 
 # I would like to set this to -u `UID'
-`RUN' useradd -d /home/USER -s /bin/zsh -M -G wheel -s /bin/zsh USER
+`RUN' groupadd -g GID USER
+`RUN' useradd -d /home/USER -s /bin/zsh -M -G wheel -s /bin/zsh -u UID -g GID USER
 
 # This might not do what I hope ... 
 # The volume, while per container, these other commands "don't stick" to it. :(
