@@ -9,7 +9,8 @@
 # Which way is better?
 #`VOLUME' /srv:/srv
 # Says the directory doesn't exist. Docker volumes are tempermental.
-`RUN' mkdir -p /srv/ccache; chown -R USER: /srv/ccache; exit 0
+`RUN' mkdir -p /srv/ccache; chown -R USER:USER /srv/ccache; exit 0
+`RUN' ln -s /srv/ccache /home/USER/.ccache
 
 `COPY' ccache.conf /etc/ccache.conf
 
