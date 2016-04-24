@@ -1,6 +1,6 @@
 include(00-details.m4)
+include(01-base.m4)
 include(09-user.m4)
-include(12-base.m4)
 include(25-devel.m4)
 include(30-rust.m4)
 include(99-mlocate.m4)

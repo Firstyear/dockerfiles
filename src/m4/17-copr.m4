@@ -1,5 +1,7 @@
 ## `17-COPY.m4'
 
+`USER' root
+
 # Install the copr's for Firstyear's 389-ds repos.
 
 ifdef(`WITHDNF', `RUN' /usr/bin/DNFYUM install -y yum-plugin-copr, `RUN' /usr/bin/DNFYUM install -y wget )

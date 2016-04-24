@@ -1,6 +1,6 @@
 include(00-details.m4)
+include(01-base.m4)
 include(09-user.m4)
-include(12-base.m4)
 include(15-localise.m4)
 include(20-update.m4)
 include(25-devel.m4)

@@ -1,4 +1,4 @@
-include(details.m4)
+include(00-details.m4)
 syntax on
 
 set wrap

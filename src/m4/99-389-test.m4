@@ -1,4 +1,5 @@
 ## `99-389-TEST.m4'
+`USER' root
 
 # Get the tests!
 `RUN' /usr/bin/DNFYUM install -y 389-ds-base-tests 389-ds-base-debuginfo python34-pytest

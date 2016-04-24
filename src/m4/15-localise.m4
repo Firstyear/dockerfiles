@@ -1,5 +1,6 @@
 ## `LOCALISE.M4'
 
+`USER' root
 # Timezones
 `WORKDIR' /etc
 `RUN' ln -sf ../usr/share/zoneinfo/TZ localtime

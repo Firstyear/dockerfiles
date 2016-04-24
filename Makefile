@@ -1,4 +1,4 @@
-CENTOS_VERSIONS := 7 6
+CENTOS_VERSIONS := 7
 CENTOS_CUSTOM := centos_wibrown
 # These are ordered in build order ...
 
@@ -47,14 +47,18 @@ centos_dockerfiles: base
 centos_dockers: centos_dockerfiles
 	for VERSION in $(CENTOS_VERSIONS); do \
 		for VARIANT in $(VARIANTS); do \
+			echo sudo docker build -t $(CENTOS_CUSTOM)_$${VARIANT}:$${VERSION} $(CENTOS_CUSTOM)_$${VARIANT}_$${VERSION} ;\
 			sudo docker build -t $(CENTOS_CUSTOM)_$${VARIANT}:$${VERSION} $(CENTOS_CUSTOM)_$${VARIANT}_$${VERSION} ;\
+			if [ -e /usr/bin/docker-squash ]; then sudo /usr/bin/docker-squash $(CENTOS_CUSTOM)_$${VARIANT}:$${VERSION}; fi ;\
 		done; \
 	done
 
 centos_dockers_nocache: centos_dockerfiles
 	for VERSION in $(CENTOS_VERSIONS); do \
 		for VARIANT in $(VARIANTS); do \
+			echo sudo docker build --no-cache=true -t $(CENTOS_CUSTOM)_$${VARIANT}:$${VERSION} $(CENTOS_CUSTOM)_$${VARIANT}_$${VERSION} ;\
 			sudo docker build --no-cache=true -t $(CENTOS_CUSTOM)_$${VARIANT}:$${VERSION} $(CENTOS_CUSTOM)_$${VARIANT}_$${VERSION} ;\
+			if [ -e /usr/bin/docker-squash ]; then sudo /usr/bin/docker-squash $(CENTOS_CUSTOM)_$${VARIANT}:$${VERSION}; fi ;\
 		done; \
 	done
 
@@ -70,14 +74,18 @@ fedora_dockerfiles: base
 fedora_dockers: fedora_dockerfiles
 	for VERSION in $(FEDORA_VERSIONS); do \
 		for VARIANT in $(VARIANTS); do \
+			echo sudo docker build -t $(FEDORA_CUSTOM)_$${VARIANT}:$${VERSION} $(FEDORA_CUSTOM)_$${VARIANT}_$${VERSION} ;\
 			sudo docker build -t $(FEDORA_CUSTOM)_$${VARIANT}:$${VERSION} $(FEDORA_CUSTOM)_$${VARIANT}_$${VERSION} ;\
+			if [ -e /usr/bin/docker-squash ]; then sudo /usr/bin/docker-squash $(FEDORA_CUSTOM)_$${VARIANT}:$${VERSION}; fi ;\
 		done; \
 	done
 
 fedora_dockers_nocache: fedora_dockerfiles
 	for VERSION in $(FEDORA_VERSIONS); do \
 		for VARIANT in $(VARIANTS); do \
+			echo sudo docker build --no-cache=true -t $(FEDORA_CUSTOM)_$${VARIANT}:$${VERSION} $(FEDORA_CUSTOM)_$${VARIANT}_$${VERSION} ;\
 			sudo docker build --no-cache=true -t $(FEDORA_CUSTOM)_$${VARIANT}:$${VERSION} $(FEDORA_CUSTOM)_$${VARIANT}_$${VERSION} ;\
+			if [ -e /usr/bin/docker-squash ]; then sudo /usr/bin/docker-squash $(FEDORA_CUSTOM)_$${VARIANT}:$${VERSION}; fi ;\
 		done; \
 	done
 

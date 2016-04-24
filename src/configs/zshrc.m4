@@ -1,4 +1,4 @@
-include(details.m4)
+include(00-details.m4)
 autoload -U compinit
 compinit
 autoload -U promptinit
