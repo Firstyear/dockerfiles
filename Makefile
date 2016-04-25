@@ -49,18 +49,18 @@ centos_dockers: centos_dockerfiles
 		for VARIANT in $(VARIANTS); do \
 			echo sudo docker build -t $(CENTOS_CUSTOM)_$${VARIANT}:$${VERSION} $(CENTOS_CUSTOM)_$${VARIANT}_$${VERSION} ;\
 			sudo docker build -t $(CENTOS_CUSTOM)_$${VARIANT}:$${VERSION} $(CENTOS_CUSTOM)_$${VARIANT}_$${VERSION} ;\
-			if [ -e /usr/bin/docker-squash ]; then sudo /usr/bin/docker-squash $(CENTOS_CUSTOM)_$${VARIANT}:$${VERSION}; fi ;\
 		done; \
 	done
+	#if [ -e /usr/bin/docker-squash ]; then sudo /usr/bin/docker-squash  --tmp-dir=/var/tmp/docker_squash $(CENTOS_CUSTOM)_$${VARIANT}:$${VERSION}; fi ;\
 
 centos_dockers_nocache: centos_dockerfiles
 	for VERSION in $(CENTOS_VERSIONS); do \
 		for VARIANT in $(VARIANTS); do \
 			echo sudo docker build --no-cache=true -t $(CENTOS_CUSTOM)_$${VARIANT}:$${VERSION} $(CENTOS_CUSTOM)_$${VARIANT}_$${VERSION} ;\
 			sudo docker build --no-cache=true -t $(CENTOS_CUSTOM)_$${VARIANT}:$${VERSION} $(CENTOS_CUSTOM)_$${VARIANT}_$${VERSION} ;\
-			if [ -e /usr/bin/docker-squash ]; then sudo /usr/bin/docker-squash $(CENTOS_CUSTOM)_$${VARIANT}:$${VERSION}; fi ;\
 		done; \
 	done
+	#if [ -e /usr/bin/docker-squash ]; then sudo /usr/bin/docker-squash --tmp-dir=/var/tmp/docker_squash $(CENTOS_CUSTOM)_$${VARIANT}:$${VERSION}; fi ;\
 
 fedora_dockerfiles: base
 	for VERSION in $(FEDORA_VERSIONS); do \
@@ -76,16 +76,16 @@ fedora_dockers: fedora_dockerfiles
 		for VARIANT in $(VARIANTS); do \
 			echo sudo docker build -t $(FEDORA_CUSTOM)_$${VARIANT}:$${VERSION} $(FEDORA_CUSTOM)_$${VARIANT}_$${VERSION} ;\
 			sudo docker build -t $(FEDORA_CUSTOM)_$${VARIANT}:$${VERSION} $(FEDORA_CUSTOM)_$${VARIANT}_$${VERSION} ;\
-			if [ -e /usr/bin/docker-squash ]; then sudo /usr/bin/docker-squash $(FEDORA_CUSTOM)_$${VARIANT}:$${VERSION}; fi ;\
 		done; \
 	done
+	#if [ -e /usr/bin/docker-squash ]; then sudo /usr/bin/docker-squash --tmp-dir=/var/tmp/docker_squash $(FEDORA_CUSTOM)_$${VARIANT}:$${VERSION}; fi ;\
 
 fedora_dockers_nocache: fedora_dockerfiles
 	for VERSION in $(FEDORA_VERSIONS); do \
 		for VARIANT in $(VARIANTS); do \
 			echo sudo docker build --no-cache=true -t $(FEDORA_CUSTOM)_$${VARIANT}:$${VERSION} $(FEDORA_CUSTOM)_$${VARIANT}_$${VERSION} ;\
 			sudo docker build --no-cache=true -t $(FEDORA_CUSTOM)_$${VARIANT}:$${VERSION} $(FEDORA_CUSTOM)_$${VARIANT}_$${VERSION} ;\
-			if [ -e /usr/bin/docker-squash ]; then sudo /usr/bin/docker-squash $(FEDORA_CUSTOM)_$${VARIANT}:$${VERSION}; fi ;\
 		done; \
 	done
+	#if [ -e /usr/bin/docker-squash ]; then sudo /usr/bin/docker-squash --tmp-dir=/var/tmp/docker_squash $(FEDORA_CUSTOM)_$${VARIANT}:$${VERSION}; fi ;\
 

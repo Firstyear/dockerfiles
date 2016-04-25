@@ -2,7 +2,7 @@
 `USER' root
 
 # Get the tests!
-`RUN' /usr/bin/DNFYUM install -y 389-ds-base-tests 389-ds-base-debuginfo python34-pytest
+`RUN' /usr/bin/DNFYUM install -y 389-ds-base-tests 389-ds-base-debuginfo ifdef(`WITHDNF', python3-pytest,  python34-pytest)
 
 # What else do we need to run the tests??
 # Maybe we need a python34 version of lib389 ....
