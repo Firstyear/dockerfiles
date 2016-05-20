@@ -1,4 +1,4 @@
-CENTOS_VERSIONS := 7
+CENTOS_VERSIONS := 7 6
 CENTOS_CUSTOM := centos_wibrown
 # These are ordered in build order ...
 
