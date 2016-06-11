@@ -7,7 +7,7 @@ FEDORA_VERSIONS := rawhide
 
 # VARIANTS := base devel 389ds-devel systemd
 #VARIANTS := devel 389ds-devel
-VARIANTS := 389ds-devel 389ds 389ds-test devel
+VARIANTS := 389ds-devel # 389ds 389ds-test devel
 
 #all: fedora_dockers centos_dockers
 all: centos_dockers fedora_dockers
