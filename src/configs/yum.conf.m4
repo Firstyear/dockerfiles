@@ -16,6 +16,6 @@ override_install_langs=en_US.UTF-8
 tsflags=nodocs
 
 # proxy=http://[fe80::1%eth0]:3128/
-proxy=http://172.17.0.1:3128/
+# proxy=http://172.17.0.1:3128/
 #deltarpm=False
 

@@ -1,0 +1,16 @@
+
+[Unit]
+Description=Docker Instance %i
+Requires=chronyd.service
+
+[Service]
+Type=simple
+EnvironmentFile=-/etc/sysconfig/docker-container-%i
+ExecStart=/usr/bin/docker run $OPTIONS --name %i_instance %i 
+ExecStopPost=/usr/bin/docker stop -t 60 %i_instance; /usr/bin/docker rm -f %i_instance
+
+[Install]
+WantedBy=multi-user.target
+
+
+

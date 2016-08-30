@@ -4,7 +4,7 @@
 
 # I would like to set this to -u `UID'
 `RUN' groupadd -g GID USER
-`RUN' useradd -d /home/USER -s /bin/zsh -M -G wheel -s /bin/zsh -u UID -g GID USER
+`RUN' useradd -l -d /home/USER -s /bin/zsh -M -G wheel -s /bin/zsh -u UID -g GID USER
 
 # This might not do what I hope ... 
 # The volume, while per container, these other commands "don't stick" to it. :(
@@ -21,10 +21,5 @@
 
 `RUN' chown -R USER: /home/USER
 `COPY' user-sudo /etc/sudoers.d/USER-sudo
-
-
-`USER' USER
-`WORKDIR' /home/USER/development/389ds
-`CMD' /bin/zsh
 
 

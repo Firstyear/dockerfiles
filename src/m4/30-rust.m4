@@ -1,4 +1,4 @@
 ## RUST.M4
 `USER' root
 
-`RUN' /usr/bin/DNFYUM install -y rust-binary
+ifdef(`WITHDNF', `RUN' /usr/bin/DNFYUM install -y rust cargo ,`RUN' /usr/bin/DNFYUM install -y rust-binary)
