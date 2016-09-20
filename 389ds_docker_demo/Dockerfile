@@ -1,34 +1,35 @@
 FROM fedora:latest
 MAINTAINER wibrown@redhat.com
-EXPOSE 389 636
+EXPOSE 80 443 389 636
+ENV container docker
 
 # Define the user incase it's been altered by a previous layer.
 USER root
 
 WORKDIR /
 
-RUN /usr/bin/dnf upgrade -y; /usr/bin/dnf -y install 389-ds-base procps-ng ; /usr/bin/dnf clean all;
+# Add the copr repos we need
+RUN dnf install -y dnf-plugins-core; dnf copr enable firstyear/svrcore -y; dnf copr enable firstyear/lib389 -y; dnf copr enable firstyear/rest389 -y; dnf copr enable firstyear/ds -y;
 
-# We ADD a replacement to systemctl as per adelton's work from https://github.com/adelton/docker-freeipa
-ADD systemctl /usr/bin/systemctl
-ADD systemctl-socket-daemon /usr/bin/systemctl-socket-daemon
-RUN chmod -v +x /usr/bin/systemctl /usr/bin/systemctl-socket-daemon
+# Now upgrade, and install useful tools.
+# Can't add rest389 yet til I fix the copr build .... :(
+RUN /usr/bin/dnf upgrade -y; /usr/bin/dnf -y install httpd 389-ds-base procps-ng iputils; /usr/bin/dnf clean all;
 
-# Add a basic setup.inf
-ADD setup.inf /tmp/setup.inf
+# Add the setup-inf, we have an example with the rest package though.
+# Build the instance from the new installer tools.
+RUN /usr/sbin/dsadm -v instance create -f /usr/share/rest389/examples/ds-setup-rest-admin.inf --IsolemnlyswearthatIamuptonogood
 
-# Add all the volumes ? Or do we let the container thingy do this.
-# VOLUME /etc/dirsrv/slapd-
 
-# Fix the hosts file, then run the installer
-## This currently takes a while due to selinux bits missing, but updates to 389's setup-ds.pl will correct this
-RUN sed -c -i 's/localhost/localhost.localdomain localhost/g' /etc/hosts; /usr/sbin/setup-ds.pl --file=/tmp/setup.inf --debug --silent; ps aux;  /usr/bin/systemctl stop dirsrv@localhost
+# Finally add the volumes, they will inherit the contents of these directories.
+VOLUME /etc/dirsrv
+VOLUME /var/log/dirsrv
+VOLUME /var/lib/dirsrv
 
-# We don't need to keep the answer file around.
-RUN rm /tmp/setup.inf
-
-USER nobody
 WORKDIR /var/empty
-# Start slapd. This is forking so we need a process watcher ... 
-CMD /usr/sbin/ns-slapd -D /etc/dirsrv/slapd-localhost -i /var/run/dirsrv/slapd-localhost.pid -w /var/run/dirsrv/slapd-localhost.startpid
+# Use systemd to start our services.
+
+RUN systemctl enable httpd; systemctl enable dirsrv@localhost
+
+STOPSIGNAL SIGRTMIN+3
+CMD [ "/sbin/init" ]
 
