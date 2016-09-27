@@ -1,4 +1,4 @@
-FROM fedora:latest
+FROM fedora:rawhide
 MAINTAINER wibrown@redhat.com
 EXPOSE 80 443 389 636
 ENV container docker
@@ -9,11 +9,11 @@ USER root
 WORKDIR /
 
 # Add the copr repos we need
-RUN dnf install -y dnf-plugins-core; dnf copr enable firstyear/svrcore -y; dnf copr enable firstyear/lib389 -y; dnf copr enable firstyear/rest389 -y; dnf copr enable firstyear/ds -y;
+RUN dnf install -y dnf-plugins-core && dnf copr enable firstyear/ds -y
 
 # Now upgrade, and install useful tools.
-# Can't add rest389 yet til I fix the copr build .... :(
-RUN /usr/bin/dnf upgrade -y; /usr/bin/dnf -y install httpd 389-ds-base procps-ng iputils; /usr/bin/dnf clean all;
+# Httpd should be a dep on rest389
+RUN /usr/bin/dnf upgrade -y && /usr/bin/dnf -y install httpd 389-ds-base python3-lib389 python3-rest389 python3-idm389 procps-ng iputils && /usr/bin/dnf clean all;
 
 # Add the setup-inf, we have an example with the rest package though.
 # Build the instance from the new installer tools.
