@@ -2,9 +2,6 @@
 
 # For the flask api
 `EXPOSE' 80 389 443 636 5000
-
-`USER' root
-
 # These should all come from the rpm specs
 # `RUN' /usr/bin/DNFYUM install -y 389-ds-base python-lib389 python-rest389 ldapvi
 ## We need to get pyldap here somehow, without pip

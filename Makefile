@@ -1,13 +1,13 @@
 CENTOS_VERSIONS := 7
-CENTOS_CUSTOM := centos_wibrown
+CENTOS_CUSTOM := centos
 # These are ordered in build order ...
 
-FEDORA_CUSTOM := fedora_wibrown
+FEDORA_CUSTOM := fedora
 FEDORA_VERSIONS := rawhide
 
 # VARIANTS := base devel 389ds-devel systemd
 #VARIANTS := devel 389ds-devel
-VARIANTS := 389ds-devel devel # 389ds 389ds-test devel
+VARIANTS ?= 389ds-devel sshd # 389ds 389ds-test devel
 
 #all: fedora_dockers centos_dockers
 all: centos_dockers fedora_dockers
@@ -26,12 +26,10 @@ clean:
 
 base:
 	mkdir -p base
-	m4 -I src/m4 src/configs/ccache.conf.m4 > base/ccache.conf
-	m4 -I src/m4 src/configs/dnf.conf.m4 > base/dnf.conf
-	m4 -I src/m4 src/configs/yum.conf.m4 > base/yum.conf
-	m4 -I src/m4 src/configs/vimrc.m4 > base/vimrc
-	m4 -I src/m4 src/configs/user-sudo.m4 > base/user-sudo
-	m4 -I src/m4 src/configs/zshrc.m4 > base/zshrc
+	for FILE in $(shell ls -1 src/configs) ; do \
+		echo $${FILE} ; \
+		m4 -I src/m4 src/configs/$${FILE} > base/$${FILE} ;\
+	done
 
 # So to add another, you likely need to add to the mkdir bit, then you add another m4 line
 # We can't do loop magic here as we need to define the dependancies

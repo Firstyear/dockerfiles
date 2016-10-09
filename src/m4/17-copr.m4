@@ -1,6 +1,4 @@
-## `17-COPY.m4'
-
-`USER' root
+## `17-COPR.m4'
 
 # Install the copr's for Firstyear's 389-ds repos.
 

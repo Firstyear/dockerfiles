@@ -3,7 +3,6 @@
 # For the flask api
 `EXPOSE' 80 389 443 636 5000
 
-`USER' root
 `RUN' useradd -d / -M -r -s /bin/false dirsrv; true
 `RUN' useradd -d / -M -r -s /bin/false dirsrv_rest; true
 

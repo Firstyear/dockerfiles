@@ -3,6 +3,3 @@
 `FROM' OS:VERSION
 `MAINTAINER' AUTHOR
 
-`USER' root
-
-

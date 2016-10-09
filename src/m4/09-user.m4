@@ -10,8 +10,8 @@
 # The volume, while per container, these other commands "don't stick" to it. :(
 # Don't make it a volume, leave it as part of the layer
 
-`RUN' mkdir -p /home/USER/build
-`RUN' chown -R USER: /home/USER/build
+# `RUN' mkdir -p /home/USER/build
+# `RUN' chown -R USER: /home/USER/build
 # Only needs to be done once?
 `COPY' zshrc /home/USER/.zshrc
 `COPY' zshrc /root/.zshrc
