@@ -11,7 +11,7 @@ dnl include(25-devel.m4)
 `RUN' /usr/bin/DNFYUM install -y sudo vim screen ccache gcc gdb make iproute iputils findutils strace zsh rpm-build ldapvi procps-ng bind-utils yum-utils nc autoconf automake libtool man llvm rpmdevtools openssh-server
 
 include(30-rust.m4)
-include(99-mlocate.m4)
+dnl include(99-mlocate.m4)
 
 `RUN' systemctl enable sshd; systemctl enable sssd; systemctl enable oddjobd
 

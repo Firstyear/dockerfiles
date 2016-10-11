@@ -3,11 +3,6 @@ MAINTAINER wibrown@redhat.com
 EXPOSE 3128
 ENV container docker
 
-# Define the user incase it's been altered by a previous layer.
-USER root
-
-WORKDIR /
-
 # Now upgrade, and install useful tools.
 # Httpd should be a dep on rest389
 RUN /usr/bin/yum upgrade -y && /usr/bin/yum -y install squid procps-ng iputils iproute && /usr/bin/yum clean all;

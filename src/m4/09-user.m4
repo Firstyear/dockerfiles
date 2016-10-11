@@ -1,7 +1,5 @@
 ## `USER.M4'
 
-`USER' root
-
 # I would like to set this to -u `UID'
 `RUN' groupadd -g GID USER
 `RUN' useradd -l -d /home/USER -s /bin/zsh -M -G wheel -s /bin/zsh -u UID -g GID USER
