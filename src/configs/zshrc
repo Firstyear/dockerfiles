@@ -20,7 +20,8 @@ export `PREFIX'=/opt/dirsrv
 # alias setup-nunc-stans='make; sudo make install; sudo cp liblfds/bin/* /opt/nunc-stans/lib/; cd ~/build/ds-build;'
 
 export ASAN_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer
-export ASAN_OPTIONS=symbolize=1
+export ASAN_OPTIONS="symbolize=1 detect_deadlocks=1 log_path=/tmp/ns-slapd.asan"
+export LSAN_OPTIONS=suppressions=/home/william/development/389ds/asan_suppressions.txt
 
 export DEBUGPOSTTRANS=1
 

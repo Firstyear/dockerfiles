@@ -11,7 +11,6 @@ COPY squid.conf /etc/squid/squid.conf
 
 RUN squid -z -N -d 0 -f /etc/squid/squid.conf; touch /var/run/squid.pid; chown squid: /var/run/squid.pid
 VOLUME /var/spool/squid
-USER squid
 # May need to chown the squid pid here....
 
 CMD ["/usr/sbin/squid", "-f", "/etc/squid/squid.conf", "-N", "-d", "0"]
