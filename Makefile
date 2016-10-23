@@ -1,9 +1,9 @@
-CENTOS_VERSIONS := 7
 CENTOS_CUSTOM := centos
+CENTOS_VERSIONS ?= 7
 # These are ordered in build order ...
 
 FEDORA_CUSTOM := fedora
-FEDORA_VERSIONS := rawhide
+FEDORA_VERSIONS ?= rawhide
 
 # VARIANTS := base devel 389ds-devel systemd
 #VARIANTS := devel 389ds-devel
