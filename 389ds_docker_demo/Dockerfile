@@ -1,4 +1,4 @@
-FROM fedora:rawhide
+FROM fedora:24
 MAINTAINER wibrown@redhat.com
 EXPOSE 80 443 389 636
 ENV container docker
