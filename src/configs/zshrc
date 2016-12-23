@@ -21,6 +21,7 @@ export `PREFIX'=/opt/dirsrv
 
 export ASAN_SYMBOLIZER_PATH=/usr/bin/llvm-symbolizer
 export ASAN_OPTIONS="symbolize=1 detect_deadlocks=1 detect_leaks=1"
+export LSAN_OPTIONS="report_objects=1"
 
 export DEBUGPOSTTRANS=1
 

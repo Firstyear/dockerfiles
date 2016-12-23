@@ -3,11 +3,11 @@ CENTOS_VERSIONS ?= 7
 # These are ordered in build order ...
 
 FEDORA_CUSTOM := fedora
-FEDORA_VERSIONS ?= 24
+FEDORA_VERSIONS ?= 25
 
 # VARIANTS := base devel 389ds-devel systemd
 #VARIANTS := devel 389ds-devel
-VARIANTS ?= 389ds-devel sshd # 389ds 389ds-test devel
+VARIANTS ?= base 389ds-devel # sshd # 389ds 389ds-test devel
 
 #all: fedora_dockers centos_dockers
 all: centos_dockers fedora_dockers
@@ -49,7 +49,6 @@ centos_dockers: centos_dockerfiles
 			sudo docker build -t $(CENTOS_CUSTOM)_$${VARIANT}:$${VERSION} $(CENTOS_CUSTOM)_$${VARIANT}_$${VERSION} ;\
 		done; \
 	done
-	#if [ -e /usr/bin/docker-squash ]; then sudo /usr/bin/docker-squash  --tmp-dir=/var/tmp/docker_squash $(CENTOS_CUSTOM)_$${VARIANT}:$${VERSION}; fi ;\
 
 centos_dockers_nocache: centos_dockerfiles
 	for VERSION in $(CENTOS_VERSIONS); do \
@@ -58,7 +57,6 @@ centos_dockers_nocache: centos_dockerfiles
 			sudo docker build --no-cache=true -t $(CENTOS_CUSTOM)_$${VARIANT}:$${VERSION} $(CENTOS_CUSTOM)_$${VARIANT}_$${VERSION} ;\
 		done; \
 	done
-	#if [ -e /usr/bin/docker-squash ]; then sudo /usr/bin/docker-squash --tmp-dir=/var/tmp/docker_squash $(CENTOS_CUSTOM)_$${VARIANT}:$${VERSION}; fi ;\
 
 fedora_dockerfiles: base
 	for VERSION in $(FEDORA_VERSIONS); do \
@@ -76,7 +74,6 @@ fedora_dockers: fedora_dockerfiles
 			sudo docker build -t $(FEDORA_CUSTOM)_$${VARIANT}:$${VERSION} $(FEDORA_CUSTOM)_$${VARIANT}_$${VERSION} ;\
 		done; \
 	done
-	#if [ -e /usr/bin/docker-squash ]; then sudo /usr/bin/docker-squash --tmp-dir=/var/tmp/docker_squash $(FEDORA_CUSTOM)_$${VARIANT}:$${VERSION}; fi ;\
 
 fedora_dockers_nocache: fedora_dockerfiles
 	for VERSION in $(FEDORA_VERSIONS); do \
@@ -85,5 +82,4 @@ fedora_dockers_nocache: fedora_dockerfiles
 			sudo docker build --no-cache=true -t $(FEDORA_CUSTOM)_$${VARIANT}:$${VERSION} $(FEDORA_CUSTOM)_$${VARIANT}_$${VERSION} ;\
 		done; \
 	done
-	#if [ -e /usr/bin/docker-squash ]; then sudo /usr/bin/docker-squash --tmp-dir=/var/tmp/docker_squash $(FEDORA_CUSTOM)_$${VARIANT}:$${VERSION}; fi ;\
 

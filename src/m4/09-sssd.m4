@@ -19,7 +19,7 @@
 
 # Do I need to fix any permissions?
 
-`RUN' /usr/bin/DNFYUM install -y sssd openldap-clients sssd-ldap oddjob oddjob-mkhomedir
+`RUN' /usr/bin/DNFYUM install -y sssd openldap-clients sssd-ldap oddjob oddjob-mkhomedir && /usr/bin/DNFYUM clean all
 
 `VOLUME' /home
 
