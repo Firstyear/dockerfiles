@@ -24,20 +24,27 @@ clean:
 	#./docker-remove-images.sh; true
 	#sudo ./docker-cleanup-volumes.sh; true
 
-base:
-	mkdir -p base
-	for FILE in $(shell ls -1 src/configs) ; do \
-		echo $${FILE} ; \
-		m4 -I src/m4 src/configs/$${FILE} > base/$${FILE} ;\
+configs:
+	mkdir -p base/core
+	mkdir -p base/devel
+	mkdir -p base/squid
+	for FILE in $(shell ls -1 src/configs/core) ; do \
+		m4 -I src/m4 src/configs/core/$${FILE} > base/core/$${FILE} ;\
+	done
+	for FILE in $(shell ls -1 src/configs/devel) ; do \
+		m4 -I src/m4 src/configs/devel/$${FILE} > base/devel/$${FILE} ;\
+	done
+	for FILE in $(shell ls -1 src/configs/squid) ; do \
+		m4 -I src/m4 src/configs/squid/$${FILE} > base/squid/$${FILE} ;\
 	done
 
 # So to add another, you likely need to add to the mkdir bit, then you add another m4 line
 # We can't do loop magic here as we need to define the dependancies
-centos_dockerfiles: base
+centos_dockerfiles: configs
 	for VERSION in $(CENTOS_VERSIONS); do \
 		for VARIANT in $(VARIANTS); do \
 			mkdir -p  $(CENTOS_CUSTOM)_$${VARIANT}_$${VERSION} ;\
-			cp base/* $(CENTOS_CUSTOM)_$${VARIANT}_$${VERSION}/ ;\
+			cp -r base/* $(CENTOS_CUSTOM)_$${VARIANT}_$${VERSION}/ ;\
 			m4 -I src/m4 -DOS=centos -DVERSION=$${VERSION} src/$${VARIANT}-Dockerfile.m4 > $(CENTOS_CUSTOM)_$${VARIANT}_$${VERSION}/Dockerfile ;\
 		done; \
 	done
@@ -58,11 +65,11 @@ centos_dockers_nocache: centos_dockerfiles
 		done; \
 	done
 
-fedora_dockerfiles: base
+fedora_dockerfiles: configs
 	for VERSION in $(FEDORA_VERSIONS); do \
 		for VARIANT in $(VARIANTS); do \
 			mkdir -p  $(FEDORA_CUSTOM)_$${VARIANT}_$${VERSION} ;\
-			cp base/* $(FEDORA_CUSTOM)_$${VARIANT}_$${VERSION}/ ;\
+			cp -r base/* $(FEDORA_CUSTOM)_$${VARIANT}_$${VERSION}/ ;\
 			m4 -I src/m4 -DOS=fedora -DWITHDNF -DVERSION=$${VERSION} src/$${VARIANT}-Dockerfile.m4 > $(FEDORA_CUSTOM)_$${VARIANT}_$${VERSION}/Dockerfile ;\
 		done; \
 	done
@@ -82,4 +89,7 @@ fedora_dockers_nocache: fedora_dockerfiles
 			sudo docker build --no-cache=true -t $(FEDORA_CUSTOM)_$${VARIANT}:$${VERSION} $(FEDORA_CUSTOM)_$${VARIANT}_$${VERSION} ;\
 		done; \
 	done
+
+
+
 

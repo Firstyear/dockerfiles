@@ -11,13 +11,13 @@
 # `RUN' mkdir -p /home/USER/build
 # `RUN' chown -R USER: /home/USER/build
 # Only needs to be done once?
-`COPY' zshrc /home/USER/.zshrc
-`COPY' zshrc /root/.zshrc
-`COPY' vimrc /home/USER/.vimrc
+`COPY' devel/zshrc /home/USER/.zshrc
+`COPY' devel/zshrc /root/.zshrc
+`COPY' devel/vimrc /home/USER/.vimrc
 `RUN' mkdir -p /home/USER/.vim/backup
 `RUN' mkdir -p /home/USER/development
 
 `RUN' chown -R USER: /home/USER
-`COPY' user-sudo /etc/sudoers.d/USER-sudo
+`COPY' core/user-sudo /etc/sudoers.d/USER-sudo
 
 

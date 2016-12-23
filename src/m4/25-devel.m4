@@ -13,5 +13,5 @@
 `RUN' mkdir -p /srv/ccache; chown -R USER:USER /srv/ccache; exit 0
 `RUN' ln -s /srv/ccache /home/USER/.ccache
 
-`COPY' ccache.conf /etc/ccache.conf
+`COPY' devel/ccache.conf /etc/ccache.conf
 
