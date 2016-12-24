@@ -5,6 +5,8 @@ CENTOS_VERSIONS ?= 7
 FEDORA_CUSTOM := fedora
 FEDORA_VERSIONS ?= 25
 
+CONFIG_PATHS := core devel squid beerclub
+
 # VARIANTS := base devel 389ds-devel systemd
 #VARIANTS := devel 389ds-devel
 VARIANTS ?= base 389ds-devel # sshd # 389ds 389ds-test devel
@@ -25,17 +27,11 @@ clean:
 	#sudo ./docker-cleanup-volumes.sh; true
 
 configs:
-	mkdir -p base/core
-	mkdir -p base/devel
-	mkdir -p base/squid
-	for FILE in $(shell ls -1 src/configs/core) ; do \
-		m4 -I src/m4 src/configs/core/$${FILE} > base/core/$${FILE} ;\
+	for CONFIG in $(CONFIG_PATHS); do \
+		mkdir -p base/$${CONFIG} ;\
 	done
-	for FILE in $(shell ls -1 src/configs/devel) ; do \
-		m4 -I src/m4 src/configs/devel/$${FILE} > base/devel/$${FILE} ;\
-	done
-	for FILE in $(shell ls -1 src/configs/squid) ; do \
-		m4 -I src/m4 src/configs/squid/$${FILE} > base/squid/$${FILE} ;\
+	for FILE in $(shell cd src/configs && find . -type f ) ; do \
+		m4 -I src/m4 src/configs/$${FILE} > base/$${FILE} ;\
 	done
 
 # So to add another, you likely need to add to the mkdir bit, then you add another m4 line

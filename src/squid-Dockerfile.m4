@@ -6,7 +6,7 @@ ENV container docker
 
 # Now upgrade, and install useful tools.
 # Httpd should be a dep on rest389
-RUN /usr/bin/yum upgrade -y && /usr/bin/yum -y install squid procps-ng iputils iproute && /usr/bin/yum clean all;
+RUN /usr/bin/yum makecache && /usr/bin/yum upgrade -y && /usr/bin/yum -y install squid procps-ng iputils iproute && /usr/bin/yum clean all;
 
 COPY squid/squid.conf /etc/squid/squid.conf
 
