@@ -10,6 +10,7 @@
 
 # You may need to install glibc-locale-source because f26 is fucked
 
+`RUN' /usr/bin/DNFYUM install -y glibc-locale-source ifdef(`WITHDNF', , epel-release)
 
 `RUN' localedef -i en_AU -c -f UTF-8 en_AU.UTF-8
 
