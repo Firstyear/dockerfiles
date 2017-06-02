@@ -1,6 +1,7 @@
 ## `SSSD.M4'
 `RUN' mkdir -p /etc/skel/.vim/backup
 `RUN' mkdir -p /etc/skel/development
+`RUN' mkdir -p /var/log/sssd
 `COPY' devel/zshrc /etc/skel/.zshrc
 `COPY' devel/vimrc /etc/skel/.vimrc
 `COPY' devel/zshrc /root/.zshrc
