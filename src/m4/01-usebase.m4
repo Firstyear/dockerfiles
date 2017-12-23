@@ -1,5 +1,0 @@
-## `USEBASE.m4'
-
-`FROM' OS()_base:VERSION
-`MAINTAINER' AUTHOR
-

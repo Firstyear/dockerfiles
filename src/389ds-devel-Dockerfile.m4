@@ -1,7 +1,0 @@
-include(00-details.m4)
-include(01-usebase.m4)
-include(25-devel.m4)
-include(30-rust.m4)
-include(55-389-devel.m4)
-dnl include(99-mlocate.m4)
-include(99-user-final.m4)
