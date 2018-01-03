@@ -4,7 +4,7 @@ CENTOS_VERSIONS ?= 7
 FEDORA_CUSTOM := fedora
 FEDORA_VERSIONS ?= 27 26
 
-VARIANTS ?= 389ds-devel
+VARIANTS ?= 389ds-devel devel
 
 all: centos_dockers fedora_dockers
 
