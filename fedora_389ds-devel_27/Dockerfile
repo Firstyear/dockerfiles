@@ -7,10 +7,8 @@ EXPOSE 80 389 443 636
 RUN cd /etc && ln -sf ../usr/share/zoneinfo/Australia/Brisbane localtime
 
 # I would like to set this to -u `UID'
-RUN groupadd -g 1343600009 william && \
-    useradd -l -d /home/william -s /bin/zsh -M -G wheel -s /bin/zsh -u 1343600009 -g 1343600009 william && \
-    useradd -d / -M -r -s /bin/false dirsrv; true && \
-    useradd -d / -M -r -s /bin/false dirsrv_rest; true
+RUN groupadd -g 654401105 william && \
+    useradd -l -d /home/william -s /bin/zsh -M -G wheel -s /bin/zsh -u 654401105 -g 654401105 william
 
 COPY devel/zshrc /home/william/.zshrc
 COPY devel/zshrc /root/.zshrc
@@ -29,6 +27,7 @@ RUN /usr/bin/dnf install -y redhat-rpm-config glibc-locale-source && \
 
 # Temporal volumes for each instance
 VOLUME /opt/dirsrv
+VOLUME /usr/local/samba
 
 # Fix the en_au locale.
 RUN localedef -i en_AU -c -f UTF-8 en_AU.UTF-8
