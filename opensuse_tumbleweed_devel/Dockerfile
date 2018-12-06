@@ -46,9 +46,6 @@ RUN cd /etc && ln -sf ../usr/share/zoneinfo/Australia/Brisbane localtime
 # Setup tinkerer for blogs
 RUN /usr/bin/pip3 install sphinx==1.6.7 tinkerer
 
-# Fix the en_au locale.
-RUN localedef -i en_AU -c -f UTF-8 en_AU.UTF-8
-
 # Temporal volumes for each instance
 VOLUME /opt/dirsrv
 VOLUME /usr/local
