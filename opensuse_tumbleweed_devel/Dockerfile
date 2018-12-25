@@ -2,17 +2,7 @@
 FROM opensuse/tumbleweed:latest
 MAINTAINER william@blackhats.net.au
 
-# RUN echo HTTP_PROXY="http://proxy-bne1.net.blackhats.net.au:3128" > /etc/sysconfig/proxy
-#
-#         attr bind-utils docbook5-xsl-stylesheets gcc gdb krb5-client \
-#         libsemanage-devel python2-semanage libxslt perl perl-ExtUtils-MakeMaker \
-#         perl-Parse-Yapp perl-Test-Base pkgconfig policycoreutils-python \
-#         python2-cryptography gnutls-devel gpgme-devel libjansson-devel libattr-devel \
-#         keyutils-devel lmdb-devel libarchive-devel rpcgen \
-#         libacl-devel libaio-devel libblkid-devel \
-#         libxml2-devel openldap2-devel pam-devel popt-devel python2-devel \
-#         readline-devel systemd-devel zlib-devel python-markdown \
-
+RUN echo HTTP_PROXY="http://proxy-bne1.net.blackhats.net.au:3128" > /etc/sysconfig/proxy
 # This gets our s4 deps also.
 RUN zypper install -y glibc-locale glibc-i18ndata timezone less \
         sudo make gdb ccache zsh procps wget findutils system-group-wheel \
@@ -24,6 +14,7 @@ RUN zypper install -y glibc-locale glibc-i18ndata timezone less \
         mozilla-nss-devel libdb-4_8-devel cyrus-sasl-devel cyrus-sasl-plain \
         cyrus-sasl-gssapi libicu-devel net-snmp-devel krb5-devel krb5-client \
         systemd-devel openldap2-devel pkgconfig \
+        pam-devel pcre-devel \
         krb5-server doxygen cracklib-devel python3-ldap rsync mozilla-nss-tools && \
     zypper clean && \
     pip install argparse-manpage argcomplete
